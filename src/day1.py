@@ -1,5 +1,6 @@
 import math
-import itertools as it
+import pandas as pd
+
 
 def readFile(fileInput):
     f = open(fileInput, 'r')
@@ -10,35 +11,14 @@ def readFile(fileInput):
     return data
 
 
-def func1(data):
-    
-    return 0
-
-
-def func2(data):
-    
-    return 0
-
-
 def main():
     data = readFile("../resources/day1_input.txt")
 
     print("Part one: ")
-    incr = 0
-    for i in range(len(data)-1):
-        if data[i] - data[i+1] < 0:
-            incr += 1
-    print(incr)
-
-    x = it.windowed(data, 2)
-    print(x)
+    print(int(pd.Series(data).rolling(window=2).apply(lambda x: x.iloc[1] - x.iloc[0] > 0).sum()))
 
     print("Part two: ")
-    incr = 0
-    for i in range(len(data)-3):
-        if data[i] - data[i+3] < 0:
-            incr += 1
-    print(incr)
+    print(int(pd.Series(data).rolling(window=4).apply(lambda x: x.iloc[3] - x.iloc[0] > 0).sum()))
 
 
 if __name__ == '__main__':
