@@ -2,6 +2,7 @@ import math
 from copy import deepcopy
 import numpy as np
 
+
 def readFile(fileInput):
     f = open(fileInput, 'r')
     data = []
