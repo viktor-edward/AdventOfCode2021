@@ -16,6 +16,7 @@ def main():
     data = readFile("../resources/day10_input.txt")
     illegalClosings = []
     incompleteLines = []
+    closingMapping = {")": "(", "]": "[", "}": "{", ">": "<"}
 
     print("Part one: ")
     for row in data:
@@ -25,13 +26,7 @@ def main():
             if char in ("(", "[", "{", "<"):
                 openingChars.append(char)
             else:
-                if char == ")" and openingChars[-1] == "(":
-                    openingChars.pop()
-                elif char == "]" and openingChars[-1] == "[":
-                    openingChars.pop()
-                elif char == "}" and openingChars[-1] == "{":
-                    openingChars.pop()
-                elif char == ">" and openingChars[-1] == "<":
+                if openingChars[-1] == closingMapping[char]:
                     openingChars.pop()
                 else:
                     corruptLine = True
@@ -45,21 +40,14 @@ def main():
 
     print("Part two: ")
     scores = []
+    scoreMap = {"(": 1, "[": 2, "{": 3, "<": 4}
     for incompleteLine in incompleteLines:
         score = 0
         while len(incompleteLine) > 0:
             char = incompleteLine.pop()
-            if char == "(":
-                score = score * 5 + 1
-            elif char == "[":
-                score = score * 5 + 2
-            elif char == "{":
-                score = score * 5 + 3
-            elif char == "<":
-                score = score * 5 + 4
+            score = score * 5 + scoreMap[char]
         scores.append(score)
     scores.sort(reverse=True)
-    print(scores)
     print(scores[math.floor(len(scores)/2)])
 
 
