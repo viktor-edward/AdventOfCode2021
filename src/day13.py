@@ -19,6 +19,8 @@ def main():
     data, instructions = readFile("../resources/day13_input.txt")
 
     print("Part one: ")
+    print(instructions)
+    print(instructions[0])
     for instr in instructions:
         x = instr.split("=")
         if x[0] == "x":
